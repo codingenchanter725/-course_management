@@ -1,0 +1,86 @@
+<mat-form-field>
+  <input
+    matInput
+    (keyup)="onSearch($event.target.value)"
+    placeholder="Search courses"
+  />
+</mat-form-field>
+
+<button mat-raised-button color="primary" (click)="openCourseForm()">
+  Add New Course
+</button>
+
+<table mat-table [dataSource]="courses">
+  <ng-container matColumnDef="university">
+    <th mat-header-cell *matHeaderCellDef>University</th>
+    <td mat-cell *matCellDef="let course">{{ course.university }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="courseName">
+    <th mat-header-cell *matHeaderCellDef>Course Name</th>
+    <td mat-cell *matCellDef="let course">{{ course.courseName }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="startDate">
+    <th mat-header-cell *matHeaderCellDef>Start Date</th>
+    <td mat-cell *matCellDef="let course">{{ course.startDate | date }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="endDate">
+    <th mat-header-cell *matHeaderCellDef>End Date</th>
+    <td mat-cell *matCellDef="let course">{{ course.endDate | date }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="price">
+    <th mat-header-cell *matHeaderCellDef>Price</th>
+    <td mat-cell *matCellDef="let course">
+      {{ course.price | currency : course.currency }}
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="actions">
+    <th mat-header-cell *matHeaderCellDef>Actions</th>
+    <td mat-cell *matCellDef="let course">
+      <button mat-icon-button color="primary" (click)="openCourseForm(course)">
+        <mat-icon>edit</mat-icon>
+      </button>
+      <button mat-icon-button color="warn" (click)="deleteCourse(course._id)">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </td>
+  </ng-container>
+
+  <tr
+    mat-header-row
+    *matHeaderRowDef="[
+      'university',
+      'courseName',
+      'startDate',
+      'endDate',
+      'price',
+      'actions'
+    ]"
+  ></tr>
+  <tr
+    mat-row
+    *matRowDef="
+      let row;
+      columns: [
+        'university',
+        'courseName',
+        'startDate',
+        'endDate',
+        'price',
+        'actions'
+      ]
+    "
+  ></tr>
+</table>
+
+<mat-paginator
+  [length]="totalCourses"
+  [pageSize]="pageSize"
+  [pageSizeOptions]="[5, 10, 25, 100]"
+  (page)="onPageChange($event)"
+>
+</mat-paginator>

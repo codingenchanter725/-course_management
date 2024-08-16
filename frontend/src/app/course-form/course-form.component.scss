@@ -1,0 +1,88 @@
+:host {
+  display: block;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.mat-dialog-title {
+  font-size: 24px;
+  font-weight: 500;
+  margin-bottom: 20px;
+}
+
+.mat-dialog-content {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  .mat-form-field {
+    width: 100%;
+  }
+}
+
+.mat-dialog-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20px;
+  gap: 12px;
+
+  button {
+    min-width: 100px;
+  }
+}
+
+@media (max-width: 600px) {
+  :host {
+    max-width: 100%;
+    padding: 0 16px;
+  }
+
+  .mat-dialog-title {
+    font-size: 20px;
+  }
+
+  .mat-dialog-content {
+    gap: 12px;
+  }
+
+  .mat-dialog-actions {
+    flex-direction: column-reverse;
+    align-items: stretch;
+
+    button {
+      width: 100%;
+    }
+  }
+}
+
+.mat-form-field {
+  &.ng-touched.ng-invalid {
+    .mat-form-field-outline {
+      color: var(--warn-color);
+    }
+  }
+
+  .mat-form-field-subscript-wrapper {
+    font-size: 12px;
+  }
+}
+
+@mixin course-form-theme($theme) {
+  $primary: map-get($theme, primary);
+  $warn: map-get($theme, warn);
+
+  .mat-dialog-title {
+    color: mat-color($primary);
+  }
+
+  .mat-raised-button.mat-primary {
+    background-color: mat-color($primary);
+    color: mat-color($primary, default-contrast);
+  }
+
+  .mat-form-field.ng-touched.ng-invalid {
+    .mat-form-field-outline {
+      color: mat-color($warn);
+    }
+  }
+}
